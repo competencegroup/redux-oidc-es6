@@ -1,6 +1,6 @@
 {
   "name": "@competencegroup/redux-oidc-es6",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "src/index.js",
   "author": "Sander Rijken <sr@d-90.nl>",
   "license": "MIT",
