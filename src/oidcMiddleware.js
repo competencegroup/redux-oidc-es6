@@ -36,6 +36,11 @@ export function getUserCallback(user) {
   }
 }
 
+function onUserLoaded(user, store) {
+  storedUser = user;
+  store.dispatch(userFound(user));
+}
+
 // callback for the userManager's getUser.catch
 export function errorCallback(error) {
   console.error(`redux-oidc: Error loading user in oidcMiddleware: ${error.message}`);
@@ -67,7 +72,10 @@ export default function createOidcMiddleware(userManager) {
   }
 
   // the middleware
-  return (store) => (next) => (action) => {
-    middlewareHandler(next, action, userManager);
+  return (store) => {
+    userManager.events.addUserLoaded(user => onUserLoaded(user, store));
+    return (next) => (action) => {
+      middlewareHandler(next, action, userManager);
+    }
   }
 };
