@@ -74,8 +74,6 @@ export default function createOidcMiddleware(userManager) {
   // the middleware
   return (store) => {
     userManager.events.addUserLoaded(user => onUserLoaded(user, store));
-    return (next) => (action) => {
-      middlewareHandler(next, action, userManager);
-    }
+    return (next) => (action) => middlewareHandler(next, action, userManager);
   }
 };
